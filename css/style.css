@@ -1,0 +1,271 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	background:#e9eff2;
+	padding:0;
+	margin:0;
+	text-align:center;
+	-webkit-text-size-adjust:none;/** this is for chrome .It could show element width less than 12px font-size correctly**/
+	font-size:12px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.img {vertical-align:middle;}
+.clear {
+	clear:both;
+	height:0;
+	font-size:0;
+	line-height:0;
+}
+.center {margin:0 auto; text-align:center;}
+.blod {font-weight:700;}
+.f36 {font-size:36px;}
+.f18 {font-size:18px;}
+.f20 {font-size:20px;}
+.f22 {font-size:22px;}
+.f16 {font-size:16px;}
+.a28800{
+	color:#a28800;
+}
+.a28800 a {color:#a28800}
+.black { color:#000;}
+.black a {color:#000;}
+.c226653 ,.c226653 a {color:#226653;}
+.c7a7a7a,.c7a7a7a a{color:#7a7a7a;}
+/**/
+.twidth {
+	width: 1044px;
+	text-align:left;
+	margin:0 auto;
+	overflow:hidden;
+	top:0px;
+}
+.twidth .left {
+	width: 35px;
+	float:left;
+	margin-bottom:-10000px;
+	padding-bottom:10000px;
+}
+.twidth .right {
+	width: 35px;
+	float:right;
+	margin-bottom:-10000px;
+	padding-bottom:10000px;
+}
+.twidth .main {
+	/*width:974px;
+	float:left;*/
+}
+#confirm .left {
+	background:url(../images/treconfirm_01.jpg) right top no-repeat;
+}
+#confirm .right {
+	background:url(../images/treconfirm_04.jpg) left top no-repeat;
+}
+#confirm .head {
+	overflow:hidden;
+	width:974px;
+	margin: 0 auto;
+}
+#confirm .head .t{
+	height:30px;
+	background:url(../images/tre-confirm_03.jpg) repeat-x;
+	overflow:hidden;
+}
+#confirm .head .m {
+	padding-top:10px;
+	background:#fff;
+}
+#confirm .head .m .ml {
+	width:530px;
+	float:left;
+	padding-left: 34px;
+	font-weight:700;
+}
+#confirm .head .m .ml .logo {
+	text-align:center;
+	margin:2px auto 8px auto;
+}
+#confirm .head .m .ml .line {
+	margin: 4px auto;
+}
+#confirm .head .m .mr {
+	width:410px;
+	float:left;	
+}
+#confirm .head .m .mr img {
+	vertical-align:top;
+}
+#confirm .head .b {
+	background:url(../images/treconfirm_23.jpg) repeat-x;
+	height:30px;
+}
+#footer {
+	font-size:11px;
+	color:#999d9e;
+	font-weight:700;
+	width:962px;
+	margin:0 auto;
+	padding: 18px 6px;
+}
+
+#footer a{
+	color:#999d9e;	
+}
+
+/**/
+#landing .head {
+	background:url(../images/trelanding3b.jpg) no-repeat;
+	height:266px;
+	width:974px;
+	overflow:hidden;
+	margin:0 auto;
+}
+#landing .head_1 {
+	background:url(../images/trelanding3b_1.jpg) no-repeat;
+}
+#landing .head_2 {
+	background:url(../images/trelanding3b_2.jpg) no-repeat;
+}
+#landing .head_3 {
+	background:url(../images/trelanding3b_3.jpg) no-repeat;
+}
+#landing .left {
+	background:url(../images/trelanding3b_01.jpg) right top no-repeat;
+}
+#landing .right {
+	background:url(../images/trelanding3b_03.jpg) left top no-repeat;
+}
+#landing .head .m .ml {
+	width:730px;	
+	padding-left: 34px;
+	font-weight:700;
+}
+#landing .head .m .ml .logo {	
+	padding-top:18px;
+	padding-bottom: 10px;
+	float:left;
+	width:205px;
+}
+#landing .head .m .ml .call {
+	float:left;
+	padding-left:12px;
+	width:500px;
+}
+#landing .head .m .ml .landing3 { padding-top:48px;}
+#landing .head .m .ml .landing3b { padding-top:15px;}
+#landing .head .m .ml .landing3b .chat {margin-left:10px;}
+#middle {
+	background:#fff;
+	width:974px;
+	margin:0 auto;
+	overflow:hidden;
+}
+#middle .list3 {
+	line-height: 32px;
+	color:#004f39;
+	font-weight:700;
+}
+#middle .form {
+	width:934px;
+	margin:0 auto;
+	position:relative;
+}
+#middle .form .left {
+	width:396px;
+	background:none;
+	padding-top:36px;
+}
+#middle .form .left .title {
+	height: 36px;
+	line-height:36px;
+	border-bottom:1px solid #ccc;
+	font-weight:700;
+}
+#middle .form .left .body {
+	border-bottom:1px solid #ccc;
+	padding: 20px 0;
+	text-align:center;
+}
+#middle .form .right {
+	margin-top:16px;
+	width:504px;
+	padding:4px;
+	border: 1px solid #ddd;
+	background:none;
+	margin-bottom:0;
+	min-height:555px;
+}
+#middle .form .right .body {
+	border:1px solid #e3e1ce;
+	background:#fffeee;
+	min-height:553px;
+}
+#middle .arrow {
+	position:absolute;
+	left:360px;
+	top:0;
+}
+#middle .form .right .top {
+	border-bottom:1px solid #e3e1ce;
+}
+#middle .form .right .top .chat {
+	float:right;
+	padding:12px 18px 8px 0;
+}
+#middle .form .right .table {padding: 12px 0;}
+#middle .form .right .table .tr {}
+#middle .form .right .table .tr .td {height:36px; line-height:36px; float:left;}
+#middle .form .right .table .tr .lable {width:204px; font-weight:700; color:#004f39; text-align:left; padding-right:6px; padding-left:20px;font-size:14px;}
+#middle .form .right .table .tr .input { width:270px;}
+#middle .form .right .table .tr .input input {border:1px solid #ddd; height:16px; line-height:16px; width:203px;}
+#middle .form .right .table .tr .submit {padding:6px 0;}
+#middle .form .right .table .tr .call {
+	float:none; text-align:center;
+	line-height:36px;}
+#middle .form .right .table .tr .trust {
+	padding:40px 0 20px 210px;
+}
+#middle .form .right .table .tr .trust img {
+	margin-right:25px;
+}
+
+div.tr.error label{
+	background: transparent url(../images/icon-error-sm.png) no-repeat 0 0 !important;
+    padding-left: 16px !important;
+}
+div.tr.error input {
+    background-color: #f6caca !important;
+    background: -moz-linear-gradient(top, #ffffff, #f6caca) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ffffff), color-stop(1.0, #f6caca)) !important;
+}
+.submit_btn {
+    background: url("../images/trelanding3b_16.jpg") no-repeat scroll left top transparent !important;
+    border: medium none !important;
+    cursor: pointer !important;
+    height: 41px !important;
+    width: 124px !important;
+}
+
+p.errors {
+    background: url("../images/icon-error.png") no-repeat scroll 10px 9px #F6CACA !important;
+    border: 1px solid #C6C6C6 !important;
+    border-radius: 4px 4px 4px 4px !important;
+    box-shadow: 0 0 2px #CFCFC7 !important;
+    clear: both !important;
+    color: #505050 !important;
+    font-size: 14px !important;
+    margin: 15px 15px 0px 15px !important;
+    padding: 10px 10px 10px 30px !important;
+    width: 400px !important;
+}
+.required_fields{
+	position:relative;
+	margin-top:5px;
+	padding:0px 68px 0px 15px;
+	text-align:right;
+	font-weight:700;
+	color: #004F39;
+    font-size: 14px;
+	width:auto;	
+}
