@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `www_employeedb`;
 CREATE DATABASE www_employeedb;
 USE www_employeedb;
 
