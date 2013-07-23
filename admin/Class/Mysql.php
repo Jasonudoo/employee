@@ -1,11 +1,11 @@
 <?php
 if( !defined('PROJECT_START') || !PROJECT_START) die("Access Denied");
 /**
- * @copyright Copyright(2012) ImageCO All Right Reserved.
+ * @copyright Copyright(2012) NetWebX All Right Reserved.
  * @filesource: Mysql.php,v$
  * @package:Class
  *
- * @author WengJunFeng <wengjf@imageco.com>
+ * @author WengJunFeng <jason@netwebx.com>
  * @version $Id: v 1.0 2012-06-06 Jason Exp $
  *
  * @abstract:
@@ -85,14 +85,14 @@ class Mysql
 		else
 			$collate = 'utf8_general_ci';
 		
-		if ( !empty( $charset ) ) 
+		if ( !empty( $charset ) )
 		{
-			if ( function_exists( 'mysql_set_charset' ) ) 
+			if ( function_exists( 'mysql_set_charset' ) )
 			{
 				mysql_set_charset( $charset, self::$_db_handle );
 				$this->_real_escape = TRUE;
-			} 
-			else 
+			}
+			else
 			{
 				$sql = printf( 'SET NAMES %s', $charset );
 				if ( ! empty( $collate ) )
@@ -105,12 +105,12 @@ class Mysql
 		$this->_ready = TRUE;
 		
 		return self::$_db_handle;
-		//return self::$_instance;	
+		//return self::$_instance;
 	}
 	
 	public function close()
 	{
-		if ( self::$_db_handle ) 
+		if ( self::$_db_handle )
 		{
 			mysql_close(self::$_db_handle);
 		}
@@ -127,32 +127,21 @@ class Mysql
 		$this->query('START TRANSACTION');
 	}
 
-	/**
-	 * 完成事务，根据查询是否出错决定是提交事务还是回滚事务
-	 *
-	 * 如果 $commitOnNoErrors 参数为 TRUE，当事务中所有查询都成功完成时，则提交事务，否则回滚事务
-	 * 如果 $commitOnNoErrors 参数为 FALSE，则强制回滚事务
-	 *
-	 * @param $commitOnNoErrors 指示在没有错误时是否提交事务
-	 */
 	public function completeTrans($commitOnNoErrors = TRUE)
 	{
 		if ($this->_transCount < 1) { return NULL; }
 		$this->_transCount = 0;
 		$this->_transCommit = TRUE;
-		if ($commitOnNoErrors) 
+		if ($commitOnNoErrors)
 		{
 			$this->query('COMMIT');
 			return TRUE;
-		} 
+		}
 
 		$this->query('ROLLBACK');
 		return FALSE;
 	}
 
-	//***********************************
-	//执行数据库语句操作
-	//***********************************
 	public function query($sql)
 	{
 		if( !$this->_ready ) return FALSE;
@@ -183,7 +172,7 @@ class Mysql
 		if($error)
 		{
 			$this->_lastError = mysql_error(self::$_db_handle);
-			$this->_lastErrorCode = $error;	
+			$this->_lastErrorCode = $error;
 			return FALSE;
 		}
 		
@@ -200,22 +189,18 @@ class Mysql
 	  	if($error)
 		{
 			$this->_lastError = mysql_error(self::$_db_handle);
-			$this->_lastErrorCode = $error;	
+			$this->_lastErrorCode = $error;
 			return FALSE;
 		}
 		return $this->fetch_result($query);
 	}
 	
-	//执行update insert delete 等操作
 	public function execute($sql)
 	{
 		if(!self::$_db_handle) return FALSE;
 		return $this->query($sql);
 	}
 
-	//***********************************
-	// 执行存储过程procedure
-	//***********************************
 	public function execute_proc($pbody, $binds, $package = NULL)
 	{
 		if(!$this->_ready) return FALSE;
@@ -292,18 +277,11 @@ class Mysql
 		return $arr;
 	}
 
-	//***********************************
-	//获取数据表列表
-	//***********************************
 	public function list_tables()
 	{
 		$query = $this->query('SHOW TABLES FROM ' . $db);
 		$array = $this->fetch_array($query);
 	}
-
-	//***********************************
-	// 获取单行数据为数组
-	//***********************************
 
 	public function fetch_array($stmt)
 	{
@@ -311,16 +289,12 @@ class Mysql
 
 		if(!is_resource($stmt))
 		{
-			$this->_lastError = 'fetch_array() 参数无效';
+			$this->_lastError = 'fetch_array() parameters error';
 			return FALSE;
 		}
 		$arr = @mysql_fetch_array($stmt,MYSQL_ASSOC);
 		return $arr ? array_change_key_case($arr,CASE_UPPER) : $arr;
 	}
-
-	//***********************************
-	// 获取单行单列
-	//***********************************
 
 	public function fetch_result($stmt, $i=0)
 	{
@@ -357,18 +331,15 @@ class Mysql
 		return $arr;
 	}
 
-	/**
-     * 执行查询，返回第一条记录的第一个字段
-     */
 	public function getOne($sql)
 	{
 		if(!$this->_ready) return FALSE;
 
-		if (is_resource($sql)) 
+		if (is_resource($sql))
 		{
 			$stmt = $sql;
-		} 
-		else 
+		}
+		else
 		{
 			$stmt = $this->query($sql);
 		}
@@ -379,20 +350,13 @@ class Mysql
 		return isset($row[0]) ? $row[0] : NULL;
     }
 
-	/**
-     * 执行查询，返回第一条记录
-     *
-     * @param string $sql
-     *
-     * @return mixed
-     */
 	public function getRow($sql)
 	{
-		if (is_resource($sql)) 
+		if (is_resource($sql))
 		{
 			$stmt = $sql;
-		} 
-		else 
+		}
+		else
 		{
 			$stmt = $this->query($sql);
 		}
@@ -401,28 +365,20 @@ class Mysql
 		return $row ? array_change_key_case($row,CASE_UPPER) : $row;
 	}
 
-	/**
-     * 执行查询，返回结果集的第一列
-     *
-     * @param string|resource $sql
-     * @param int $col 要返回的列，0 为第一列
-     *
-     * @return mixed
-     */
 	public function getCol($sql, $col = 0)
 	{
-		if (is_resource($sql)) 
+		if (is_resource($sql))
 		{
 			$stmt = $sql;
-		} 
-		else 
+		}
+		else
 		{
 			$stmt = $this->query($sql);
 		}
 		
 		$data = array();
 		$row = array();
-		while ($row = @mysql_fetch_array($stmt,MYSQL_BOTH)) 
+		while ($row = @mysql_fetch_array($stmt,MYSQL_BOTH))
 		{
 			$data[] = $row[$col];
 		}
@@ -430,9 +386,6 @@ class Mysql
 		return $data;
 	}
 
-	/**
-     * 转换成查询总数的语句
-     */
 	public function query_count($sql)
 	{
 		$search = array ("'^select[ \n\r\t].*[ \n\r\t]from[ \n\r\t]'siU","/^(.*)order[ \n\r\t]+by(.*)$/si");
@@ -452,10 +405,9 @@ class Mysql
 		}
 		$start -= 1;
 		$end = $end - $start;
-		return $sql .= " limit $start, $end"; 
+		return $sql .= " limit $start, $end";
 	}
 
-	//表插入
 	public function table_insert($table, $arr, $commit = NULL)
 	{
 		$magic_quote = get_magic_quotes_gpc();
@@ -494,7 +446,6 @@ class Mysql
 		return $this->execute('INSERT INTO '.$table.' ('.$insert_key_sql.') VALUES ('.$insert_val_sql.')');
 	}
 
-	//表更新
 	public function table_update($table, $arr, $wh)
 	{
 		$sql = 'update '.$table;
@@ -502,7 +453,7 @@ class Mysql
 		$i = 0;
 		foreach($arr as $key=>$val)
 		{
-			if($i++>0) 
+			if($i++>0)
 			{
 				$update_str .= ',';
 			}
@@ -525,9 +476,6 @@ class Mysql
 		return $this->execute($sql);
 	}
 
-	//***********************************
-	// 显示错误信息
-	//***********************************
 	public function error()
 	{
 		return $this->_lastError;
@@ -540,7 +488,6 @@ class Mysql
 		else return $this->_lastError;
 	}
 	
-	//读取文件
 	public function read_file($file_name)
 	{
 		if(!FINE_QUOTES_RUNTIME) return file_get_contents($file_name);
@@ -550,16 +497,13 @@ class Mysql
 		return $content;
 	}
 
-	//计算统一错误码
 	public function set_error_type($code = NULL)
 	{
 		if($code == NULL) return;
-		//主键复重
 		if($code == '1062')
 		{
 			$error_type = '3';
 		}
-		//其它错误
 		else
 		{
 			$error_type = '9';
@@ -567,15 +511,11 @@ class Mysql
 		$this->_errorType = $error_type;
 	}
 
-	//获取错误码
 	public function get_error_type()
 	{
 		return $this->_errorType;
 	}
 
-	/** 获取sequence
-	 # seq_name sequence名
-	 */
 	public function get_sequence($seq_name)
 	{
 		if( !defined("DB_SEQ_TABLE") )
@@ -584,7 +524,7 @@ class Mysql
 		}
 		$seq_table = DB_SEQ_TABLE;
 		$sql = "UPDATE $seq_table SET `seq_nextnum` = LAST_INSERT_ID(
-			CASE 
+			CASE
 				WHEN `seq_nextnum` >= `max_value` THEN `min_value`
 			ELSE
 				`seq_nextnum`+ 1

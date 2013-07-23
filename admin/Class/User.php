@@ -1,11 +1,11 @@
 <?php
 if( !defined('PROJECT_START') || !PROJECT_START) die("Access Denied");
 /**
- * @copyright Copyright(2012) ImageCO All Right Reserved.
+ * @copyright Copyright(2012) NetWebX All Right Reserved.
  * @filesource: User.php,v$
  * @package:Class
  *
- * @author WengJunFeng <wengjf@imageco.com>
+ * @author WengJunFeng <jason@netwebx.com>
  * @version $Id: v 1.0 2012-06-11 Jason Exp $
  *
  * @abstract:
@@ -59,10 +59,10 @@ class User extends Base
 	 */
 	public function sendRequest($action)
 	{
-		$allow_action = array(self::$ACTION_LOGIN, self::$ACTION_SIGNOUT, 
+		$allow_action = array(self::$ACTION_LOGIN, self::$ACTION_SIGNOUT,
 							self::$ACTION_REGISTER, self::$ACTION_GETBARCODEDETAIL,
 							self::$ACTION_SENDVALCODE, self::$ACTION_USERRESETPWD,
-							self::$ACTION_GETBARCODELIST, self::$ACTION_UPGRADE_VIP, 
+							self::$ACTION_GETBARCODELIST, self::$ACTION_UPGRADE_VIP,
 							self::$ACTION_VALIDATE, self::$ACTION_RESETPASSWORD,
 							self::$ACTION_RESETNEWPWD
 							);
@@ -127,7 +127,7 @@ class User extends Base
 	}
 	
 	/**
-	 * 
+	 *
 	 * @return mixed
 	 */
 	private function _FUNC_validate()
@@ -250,7 +250,7 @@ class User extends Base
 	 */
 	private function _post_request($post_string)
 	{
-		if (function_exists('curl_init')) 
+		if (function_exists('curl_init'))
 		{
 			// Use CURL if installed...
 			$ch = curl_init();
@@ -260,8 +260,8 @@ class User extends Base
 			curl_setopt($ch, CURLOPT_USERAGENT, 'Jienu API PHP5 Client 1.0 (curl) ' . phpversion());
 			$result = curl_exec($ch);
 			curl_close($ch);
-		} 
-		else 
+		}
+		else
 		{
 			// Non-CURL based version...
 			$context =
@@ -273,7 +273,7 @@ class User extends Base
 					'content' => $post_string));
 			$contextid = stream_context_create($context);
 			$sock = fopen($this->getServerUrl(), 'r', false, $contextid);
-			if ($sock) 
+			if ($sock)
 			{
 				$result = '';
 				while (!feof($sock))
@@ -341,7 +341,7 @@ class User extends Base
 	 */
 	public function query($phone)
 	{
-		$sql = "SELECT user_id, user_name, user_vip, user_credit, phone_number, last_login_time, register_time 
+		$sql = "SELECT user_id, user_name, user_vip, user_credit, phone_number, last_login_time, register_time
 				FROM " . $this->getTable() . " WHERE user_name = '" . $phone . "' LIMIT 1";
 		$qry = $this->_db->query($sql);
 		$result = $this->_db->fetch_array($qry);
@@ -362,7 +362,7 @@ class User extends Base
 		$result = $this->_db->fetch_array($qry);
 		
 		return $result;
-	}	
+	}
 
 	public function isExists($uid)
 	{

@@ -1,11 +1,11 @@
 <?php
 if( !defined('PROJECT_START') || !PROJECT_START) die("Access Denied");
 /**
- * @copyright Copyright(2012) ImageCO All Right Reserved.
+ * @copyright Copyright(2012) NetWebX All Right Reserved.
  * @filesource: Weblog.php,v$
  * @package:Class
  *
- * @author WengJunFeng <wengjf@imageco.com>
+ * @author WengJunFeng <jason@netwebx.com>
  * @version $Id: v 1.0 2012-05-30 Jason Exp $
  *
  * @abstract:
@@ -13,17 +13,50 @@ if( !defined('PROJECT_START') || !PROJECT_START) die("Access Denied");
 
 class Weblog
 {
+    /**
+     * The log file path
+     * @var string
+     * @access private
+     */
 	private static $_log_path = APP_LOG_PATH;
-	private static $_log_file_subfix = NULL;
-	private static $_log_file = NULL;
-	private static $_log_file_handle = array();
-	private static $_log_file_name = array("system", "voucher", "alipay", "jienu", "error");
 	
+	/**
+	 * The log file subfix
+	 * @var string
+	 * @access private
+	 */
+	private static $_log_file_subfix = NULL;
+	
+	/**
+	 * The log file full name included the path
+	 * @var string
+	 * @access private
+	 */
+	private static $_log_file = NULL;
+	
+	/**
+	 * The log file handle
+	 * @var object or null
+	 */
+	private static $_log_file_handle = array();
+	
+	/**
+	 * The log file type
+	 * @var array
+	 */
+	private static $_log_file_type = array("system", "error");
+	
+	/**
+	 * The log file type index for system
+	 * @var integer
+	 */
 	public static $WEBLOG_SYSTEM = 0;
-	public static $WEBLOG_VOUCHER = 1;
-	public static $WEBLOG_ALIPAY = 2;
-	public static $WEBLOG_JIENU = 3;
-	public static $WEBLOG_ERROR = 4;
+	
+	/**
+	 * The log file type index for error
+	 * @var integer
+	 */
+	public static $WEBLOG_ERROR = 1;
 	
     /**
      * Singleton pattern implementation makes "new" unavailable
@@ -43,13 +76,20 @@ class Weblog
     {
     	self::_close();
     }
-    	
-	static private function _getLogFileName($fname)
+    
+    /**
+     * Get the log file full name
+     * The file name is combined by the log file path, log file type and log file subfix
+     *
+     * @param $ftype integer the log file type
+     * @return TRUE or FALSE
+     */
+	static private function _getLogFileName($ftype)
 	{
 		self::$_log_file_subfix = date("Ymd");
-		if( isset(self::$_log_file_name[$fname]) )
+		if( isset(self::$_log_file_type[$ftype]) )
 		{
-			self::$_log_file = self::$_log_path . DS . self::$_log_file_name[$fname] . "_" . self::$_log_file_subfix . ".log";
+			self::$_log_file = self::$_log_path . DS . self::$_log_file_type[$ftype] . "_" . self::$_log_file_subfix . ".log";
 			return TRUE;
 		}
 		return FALSE;
@@ -71,6 +111,11 @@ class Weblog
 		return FALSE;
 	}
 	
+	/**
+	 * Read the log file
+	 *
+	 * @param integer $file log file type
+	 */
 	static public function read($file = 0)
 	{
 		if( self::_getLogFileName($file) )
@@ -81,6 +126,12 @@ class Weblog
 		}
 	}
 	
+	/**
+	 * Open the log file
+	 * @param integer $file log file type
+	 * @param boolean $readOnly
+	 * @return object
+	 */
 	static private function _open($file, $readOnly = FALSE)
 	{
 		$openMode = "a+";
@@ -95,6 +146,10 @@ class Weblog
 		return self::$_log_file_handle[$file];
 	}
 	
+	/**
+	 * Close the log file
+	 * @return boolean
+	 */
 	static private function _close()
 	{
 		foreach(self::$_log_file_handle as $key => $handle)

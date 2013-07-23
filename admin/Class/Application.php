@@ -1,11 +1,11 @@
 <?php
 if( !defined('PROJECT_START') || !PROJECT_START) die("Access Denied");
 /**
- * @copyright Copyright(2012) ImageCO All Right Reserved.
+ * @copyright Copyright(2012) NetWebX All Right Reserved.
  * @filesource: Application.php,v$
  * @package:Class
  *
- * @author WengJunFeng <wengjf@imageco.com>
+ * @author WengJunFeng <jason@netwebx.com>
  * @version $Id: v 1.0 2012-06-06 Jason Exp $
  *
  * @abstract: The base class for all page action.
@@ -13,73 +13,64 @@ if( !defined('PROJECT_START') || !PROJECT_START) die("Access Denied");
 
 class Application
 {
-	/*
-	 * 视图类的实例名
+	/**
+	 * The viewport object
 	 * @access private
 	 * @var object
 	 */
 	private $_view = NULL;
 
-	/*
-	 * 支持的WAP视图
+	/**
+	 * Supported Viewport
 	 * @access private
 	 * @var Array
 	 */
-	private $_support_wapview = NULL;
+	private $_support_view = NULL;
 	
-	/*
-	 * 缺省的WAP视图
+	/**
+	 * Default Viewport
 	 * @access private
-	 * @var int 
+	 * @var int
 	 */
-	private $_default_wapview = NULL;
+	private $_default_view = NULL;
 	
-	/*
-	 * 页面的标题
+	/**
+	 * The Page Title
 	 * @access private
 	 * @var string
 	 */
 	private $_title = NULL;
 	
-	/*
+	/**
 	 * SESSION ID
-	 * WAP网站的SESSION ID
-	 * @access private
-	 * @var string 
-	 */
-	private $_sid = NULL;
-
-	/*
-	 * Token ID
-	 * 街路登录回传过来的session id
 	 * @access private
 	 * @var string
 	 */
-	private $_token = NULL;
-	
-	/*
-	 * 登录状态
+	private $_sid = NULL;
+
+	/**
+	 * Login Status
 	 * @access private
 	 * @var bool
 	 */
 	private $_login = FALSE;
 	
 	/*
-	 * 页面提交或传递的值,即_POST和_GET值
+	 * The combined vars for _POST and _GET
 	 * @access private
-	 * @var mixed 
+	 * @var mixed
 	 */
 	private $_VARS = array();
 	
 	/*
-	 * 页面错误显示信息
+	 * The error message shown on the page
 	 * @access private
 	 * @var Array
 	 */
 	private $_ERRORS = array();
 	
 	/*
-	 * 页面成功显示信息
+	 * The success message shown on the page
 	 * @access private
 	 * @var Array
 	 */
@@ -87,21 +78,19 @@ class Application
 	
 	/*
 	 * Construct Function
-	 * 初始化缺省Wap视图
-	 * 过滤输入和提交的参数
-	 * session初始化
-	 * 检查登录状态
-	 * 页面过程初始化
+	 * set the default view port
+	 * filter the post and get value
+	 * session initial
+	 * page init
 	 */
 	public function __construct()
 	{
-		//$this->_default_wapview = Wap::$HTML;
-		$this->_default_wapview = Wap::$WAP2;
-		$this->_support_wapview = array(Wap::$HTML, Wap::$HTML5, Wap::$WAP1, Wap::$WAP2);
+		$this->_default_view = Viewport::$HTML;
+		$this->_support_view = array(Viewport::$HTML, Viewport::$HTML5, Viewport::$WAP1, Viewport::$WAP2);
 		
 		$this->_filter();
 		$this->_session_init();
-		$this->_checkLoginStatus();
+		//$this->_checkLoginStatus();
 		$this->_before_init();
 		$this->_init();
 		$this->_after_init();
@@ -109,7 +98,7 @@ class Application
     
 	static public function autoload()
     {
-		spl_autoload_register(array("Application", "loadClass"));	
+		spl_autoload_register(array("Application", "loadClass"));
     }
     
     static public function loadClass($class)
@@ -125,12 +114,12 @@ class Application
     	$findMe = FALSE;
     	for($i = 0; $i < sizeof($class_path); $i++)
     	{
-    		$class_filename = $class_path[$i] . DS . $class_name . ".php"; 
+    		$class_filename = $class_path[$i] . DS . $class_name . ".php";
     		if( file_exists($class_filename) )
     		{
     			include_once($class_filename);
     			$findMe = TRUE;
-    			break;		
+    			break;
     		}
     	}
     	return $findMe;
@@ -145,16 +134,16 @@ class Application
 		return $this->_view;
 	}
 	
-	public function getDefaultWapView()
+	public function getDefaultView()
 	{
-		return $this->_default_wapview;
+		return $this->_default_view;
 	}
 	
-	public function setDefaultWapView($view)
+	public function setDefaultView($view)
 	{
-		if( in_array($view, $this->_support_wapview) )
+		if( in_array($view, $this->_support_view) )
 		{
-			$this->_default_wapview = $view;
+			$this->_default_view = $view;
 			return TRUE;
 		}
 		return FALSE;
@@ -295,12 +284,9 @@ class Application
 	
 	protected function _session_init($id = NULL)
 	{
-		session_name("IMGCOLOGIN");
-		//if( !isset($_SESSION['sid']) )
-		//{
-			session_start();
-			$this->_login = FALSE;
-		//}
+		session_name("EMPLOYEELOGIN");
+		session_start();
+		$this->_login = FALSE;
 		$this->_sid = session_id();
 		return $this->_sid;
 	}
@@ -333,22 +319,22 @@ class Application
 	{
 		!defined('MAGIC_QUOTES_GPC') && define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
 
-		if (!MAGIC_QUOTES_GPC || $force) 
+		if (!MAGIC_QUOTES_GPC || $force)
 		{
-			if ( is_array($str) ) 
+			if ( is_array($str) )
 			{
-				foreach ($str as $key=>$val) 
+				foreach ($str as $key=>$val)
 				{
 					$str[$key] = $this->_renderslashes($val, $force, $rend);
 				}
 			}
-			else 
+			else
 			{
 				if( $rend ) $str = addslashes($str);
 				else $str = stripslashes($str);
 			}
 		}
-		return $str;		
+		return $str;
 	}
 	
 	private function _init()
@@ -460,7 +446,7 @@ class Application
 		$key = hash('SHA256', $salt, true);
 		
 		// Build $iv and $iv_base64.  We use a block size of 128 bits (AES compliant) and CBC mode.  (Note: ECB mode is inadequate as IV is not used.)
-		srand(); 
+		srand();
 		$iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC), MCRYPT_RAND);
 		if (strlen($iv_base64 = rtrim(base64_encode($iv), '=')) != 22) return false;
 		
@@ -468,7 +454,7 @@ class Application
 		$encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $decrypted . md5($decrypted), MCRYPT_MODE_CBC, $iv));
 		
 		// We're done!
-		return $iv_base64 . $encrypted;		
+		return $iv_base64 . $encrypted;
 	}
 	
 	public function decodeString($encrypted, $salt="12345678")
@@ -491,6 +477,6 @@ class Application
 		if (md5($decrypted) != $hash) return false;
 		
 		// Yay!
-		return $decrypted;		
+		return $decrypted;
 	}
 }

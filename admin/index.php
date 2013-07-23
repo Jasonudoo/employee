@@ -11,36 +11,32 @@
  */
 
 ini_set("display_errors", 1);
-require_once "include".DIRECTORY_SEPARATOR."config.inc.php";
-require_once APP_ROOT_PATH.DS."include".DS."function.inc.php";
-require_once APP_ROOT_PATH.DS."library".DS."form.lib.php";
+error_reporting(E_ALL);
+define("PROJECT_START", TRUE);
+
+require_once "Config" . DIRECTORY_SEPARATOR . "Global.inc.php";
+require_once ADMIN_ROOT_PATH . DS . "Function" . DS . "common.inc.php";
 
 
 AdminView::Run();
 
-final class AdminView
+final class AdminView extends Application
 {
 	static private $_form;
-	static private $_username = "arthur@abaxinteractive.com";
-	static private $_password = "2Engage@28";
 	static private $_cookie_name = "kw3kdosldng";
 	
-	static private $_source_from = array(
-		"Lee" => "Convert_Receivables_Into_Capital.html",
-		"Far" => "Factor_Accounts_Receivable.html",
-		"Haney" => "Business_Growth_Strategies.html",
-		"Lara" => "Turn_Accounts_Receivable_Into_Cash.html",
-		"Arf" => "Accounts_Receivable_Financing.html",
-		"Atf" => "Alternative_to_Factoring.html",
-		"Bgs" => "Business_Growth_Strategies.html",
-		"Fyb" => "Finance_Your_Business.html",
-		"Ics" => "Innovative_Capital_Solution.html",
-		"Ics3" => "Innovative_Capital_Solution_3.html",
-		"Ics4" => "Innovative_Capital_Solution_4.html"
-	);
-	
-	public static function run()
+	protected function _before_init()
 	{
+	}
+	
+	protected function _after_init()
+	{
+    
+	}
+	public static function Run()
+	{
+	    parent::__construct();
+	    
 		if( self::_isAuthorization() )
 		{
 			self::_doDashboard();
@@ -53,6 +49,8 @@ final class AdminView
 	
 	private static function _isAuthorization()
 	{
+	    $user = new User();
+	    
 		if( isset($_COOKIE[self::$_cookie_name]) && !empty($_REQUEST['sid']) && $_COOKIE[self::$_cookie_name] === $_REQUEST['sid'] )
 		{
 			return TRUE;
