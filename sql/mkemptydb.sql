@@ -81,3 +81,18 @@ INSERT INTO `tbl_options`(`OPTION_ID`, `OPTION_NAME`, `OPTION_VALUE`, `AUTOLOAD`
 INSERT INTO `tbl_options`(`OPTION_ID`, `OPTION_NAME`, `OPTION_VALUE`, `AUTOLOAD`) VALUES(100001, 'WEBSITE_URL', '', 'NO');
 INSERT INTO `tbl_options`(`OPTION_ID`, `OPTION_NAME`, `OPTION_VALUE`, `AUTOLOAD`) VALUES(100002, 'WEBSITE_PAGESIZE', '10', 'YES');
 INSERT INTO `tbl_options`(`OPTION_ID`, `OPTION_NAME`, `OPTION_VALUE`, `AUTOLOAD`) VALUES(100003, 'WEBSITE_PHOTO_UPLOAD_PATH', '', 'NO');
+
+DROP TABLE IF EXISTS `tbl_sessions`;
+CREATE TABLE IF NOT EXISTS `tbl_sessions`(
+  `sessions` varchar(100) NOT NULL default '',
+  `sessions_user_name` varchar(40) NULL,
+  `sessions_ipadr` varchar(100) NOT NULL default '',
+  `sessions_browser` varchar(64) NOT NULL default '',
+  `sessions_browser_ver` varchar(10) NOT NULL default '',
+  `sessions_os` varchar(64) NOT NULL default '',
+  `sessions_login` INTEGER UNSIGNED NULL,
+  `sessions_last` INTEGER UNSIGNED NULL,
+  `sessions_lock` enum('Y','N') NOT NULL default 'N',
+  PRIMARY KEY (`sessions`),
+  INDEX IDX_user(`sessions_user_name`)
+) ENGINE=INNODB CHARACTER SET utf8;
