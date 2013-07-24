@@ -302,7 +302,7 @@ body{
     				success : function(data){
     					var d = eval('[' + data + ']');
     					if(d[0]['action'] == 'logout'){
-    						//window.location.reload();
+    						window.location.reload();
     					}
     				}
     			},
@@ -477,7 +477,7 @@ EODB;
 		$result['message'] = 'logout now';
 		echo json_encode($result);
 		//header("Location : ". $_SERVER['PHP_SELF']);
-		return;
+		exit;
 	}
 	
 	static private function _doExport()
