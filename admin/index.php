@@ -188,15 +188,6 @@ EOFO;
 		return $html;
 	}
 	
-    private static function _isPostCallback()
-    {
-		if(isset($_SERVER['REQUEST_METHOD']) && strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
-		{
-			return TRUE;
-		}
-		return FALSE;
-    }
-    
     private static function _doLogin()
     {
 		$return = array();

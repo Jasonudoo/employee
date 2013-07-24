@@ -89,7 +89,7 @@ class Application
 		$this->_support_view = array(Viewport::$HTML, Viewport::$HTML5, Viewport::$WAP1, Viewport::$WAP2);
 		
 		$this->_filter();
-		$this->_session_init();
+		//$this->_session_init();
 		//$this->_checkLoginStatus();
 		$this->_before_init();
 		$this->_init();
@@ -291,7 +291,7 @@ class Application
 		return $this->_sid;
 	}
 	
-	protected function _isPostCallback()
+	protected static function _isPostCallback()
 	{
 		if(isset($_SERVER['REQUEST_METHOD']) && strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
 		{
