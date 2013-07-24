@@ -14,7 +14,7 @@ if( !defined('PROJECT_START') || !PROJECT_START) die("Access Denied");
 //DB Host
 define("DB_HOST", "localhost");
 //DB Name
-define("DB_NAME", "www_employee");
+define("DB_NAME", "www_employeedb");
 //DB User Name
 define("DB_USER", "usr_employee");
 //DB Password
@@ -23,6 +23,10 @@ define("DB_PASS", "a6evVypDA){ohZL]");
 define("DB_CHARSET", "utf8");
 
 //===================Default System Parameters======================//
+//COOKIE User Name
+define('CUSER_USERNAME', '9widjnwlwo');
+//COOKIE Session Name
+define('CSESSIONID', 'sessionsinwoldw');
 //COOKIE Expired Timeout
 define('COOKIE_EXPIRED', 86400);
 //SESSION Expired Timeout

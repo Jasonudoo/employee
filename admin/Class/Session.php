@@ -25,24 +25,24 @@ class Session extends Base
     private function _initSession()
     {
         if (isset($_COOKIE[CUSER_USERNAME])) {
-            $this->set("sessions_user_name", $_COOKIE[CUSER_USERNAME]);
+            $this->set("SESSIONS_USER_NAME", $_COOKIE[CUSER_USERNAME]);
         } else {
-        	$this->set("sessions_user_name", "");
+        	$this->set("SESSIONS_USER_NAME", "");
             $this->Login = FALSE;
         }
         
         if (isset($_COOKIE[CSESSIONID])) {
-            $this->set("sessions", $_COOKIE[CSESSIONID]);
+            $this->set("SESSIONS", $_COOKIE[CSESSIONID]);
         } else {
-        	$this->set("sessions", "");
+        	$this->set("SESSIONS", "");
             $this->Login = FALSE;
         }
 
-        $this->set("sessions_ipadr", $_SERVER['REMOTE_ADDR']);
+        $this->set("SESSIONS_IPADR", $_SERVER['REMOTE_ADDR']);
 		$agent = checkUserAgentString($_SERVER['HTTP_USER_AGENT']);
-		$this->set("sessions_browser", $agent[0]);
-		$this->set("sessions_browser_ver", $agent[1]);
-		$this->set("sessions_os", $agent[2]);
+		$this->set("SESSIONS_BROWSER", $agent[0]);
+		$this->set("SESSIONS_BROWSER_VER", $agent[1]);
+		$this->set("SESSIONS_OS", $agent[2]);
 
     }
     
@@ -54,12 +54,12 @@ class Session extends Base
     {
 		$this->cleanExpiredSessions();
 
-        if ( trim($this->get['sessions_user_name']) == "" || trim($this->_data['sessions']) == ""){
+        if ( trim($this->get('SESSIONS_USER_NAME')) == "" || trim($this->get('SESSIONS')) == ""){
             $this->Login = FALSE;
             return;
         }
 		$user = new User();
-        if ( !$this->UserInfo = $user->getUserInfoByName($this->_data['sessions_user_name']) ) {
+        if ( !$this->UserInfo = $user->getUserInfoByName($this->get('SESSIONS_USER_NAME')) ) {
             $this->Login = FALSE;
             return;
         }
@@ -77,9 +77,9 @@ class Session extends Base
 	 */
     private function isSessionExist()
     {
-    	$sql = sprintf("SELECT count(1) AS cnt FROM `%s` WHERE `sessions` = '%s'",
+    	$sql = sprintf("SELECT count(1) AS cnt FROM `%s` WHERE `SESSIONS` = '%s'",
     	            $this->getTable(),
-    	            $this->get('sessions'));
+    	            $this->get('SESSIONS'));
         $qry = $this->getDb()->query($sql);
         $result = $this->getDb()->fetch_result($qry);
         $result = intval($result);
@@ -103,7 +103,7 @@ class Session extends Base
     private function cleanExpiredSessions()
     {
 		$expired = time() - SESSION_EXPIRED;
-		$sql = sprintf("DELETE FROM `%s` WHERE `session_last` <= %b AND `sessions_lock` = 'N'",
+		$sql = sprintf("DELETE FROM `%s` WHERE `SESSIONS_LAST` <= %b AND `SESSIONS_LOCK` = 'N'",
 		            $this->getTable(), $expired);
 		$this->getDb()->query($sql);
     }
@@ -111,7 +111,7 @@ class Session extends Base
     public function deleteLockSession()
     {
     	$escape_time = time() - SESSION_LOCK_EXPIRED;
-		$sql = sprintf("DELETE `%s` WHERE `session_lock` = 'Y' AND `session_last` <= %s",
+		$sql = sprintf("DELETE `%s` WHERE `SESSIONS_LOCK` = 'Y' AND `SESSIONS_LAST` <= %s",
 		            $this->getTable(), $escape_time);
         $this->getDb()->query($sql);
     }
@@ -136,14 +136,27 @@ class Session extends Base
         }
         $sessionid = md5($sessionid);
 		
-		if( is_null($this->get('sessions_lock')) ) $this->set('sessions_lock', 'N');
+		if( is_null($this->get('SESSIONS_LOCK')) ) $this->set('SESSIONS_LOCK', 'N');
 		
-		$sql = sprintf("INSERT INTO `%s` SET `sessions` = '%s', `sessions_user_name` = '%s', `sessions_ipadr` = '%s',
-						`sessions_browser` = '%s', `sessions_browser_ver` = '%s', `sessions_os` = '%s', `sessions_lock` = '%s',
-						`sessions_login` = %s, `sessions_last` = %s",
-						$this->getTable(), $sessionid, $this->get('sessions_user_name'), $this->get('sessions_ipadr'),
-						$this->get('sessions_browser'), $this->get('sessions_browser_ver'), $this->get('sessions_os'),
-						$this->get('sessions_lock'), time(), time());
+		$sql = sprintf("INSERT INTO `%s` SET `SESSIONS` = '%s',
+		                `SESSIONS_USER_NAME` = '%s',
+		                `SESSIONS_IPADR` = '%s',
+						`SESSIONS_BROWSER` = '%s',
+		                `SESSIONS_BROWSER_VER` = '%s',
+		                `SESSIONS_OS` = '%s',
+		                `SESSIONS_LOCK` = '%s',
+						`SESSIONS_LOGIN` = %s,
+		                `SESSIONS_LAST` = %s",
+						$this->getTable(),
+		                $sessionid,
+		                $this->get('SESSIONS_USER_NAME'),
+		                $this->get('SESSIONS_IPADR'),
+						$this->get('SESSIONS_BROWSER'),
+		                $this->get('SESSIONS_BROWSER_VER'),
+		                $this->get('SESSIONS_OS'),
+						$this->get('SESSIONS_LOCK'),
+		                time(),
+		                time());
 		
 		$this->getDb()->query($sql);
         return $sessionid;
@@ -151,18 +164,18 @@ class Session extends Base
 	
     public function updateLastTime()
     {
-    	$sql = sprintf("UPDATE `%s` SET `session_last` = %s WHERE `sessions` = '%s'",
+    	$sql = sprintf("UPDATE `%s` SET `SESSIONS_LAST` = %s WHERE `SESSIONS` = '%s'",
     					$this->getTable(),
     					time(),
-    					$this->get('sessions'));
+    					$this->get('SESSIONS'));
         $this->getDb()->query($sql);
     }
 
     public function getLockSession()
     {
-    	$sql = sprintf("SELECT count(1) as cnt FROM `%s` WHERE `session_lock` = 'Y' AND `session_ipadr` = '%s'",
+    	$sql = sprintf("SELECT count(1) as cnt FROM `%s` WHERE `SESSIONS_LOCK` = 'Y' AND `SESSIONS_IPADR` = '%s'",
     					$this->getTable(),
-    					$this->get('session_ipadr'));
+    					$this->get('SESSIONS_IPADR'));
     	$qry = $this->getDb()->query($sql);
     	$result = $this->getDb()->fetch_result($qry);
     	$result = intval($result);

@@ -84,15 +84,15 @@ INSERT INTO `tbl_options`(`OPTION_ID`, `OPTION_NAME`, `OPTION_VALUE`, `AUTOLOAD`
 
 DROP TABLE IF EXISTS `tbl_sessions`;
 CREATE TABLE IF NOT EXISTS `tbl_sessions`(
-  `sessions` varchar(100) NOT NULL default '',
-  `sessions_user_name` varchar(40) NULL,
-  `sessions_ipadr` varchar(100) NOT NULL default '',
-  `sessions_browser` varchar(64) NOT NULL default '',
-  `sessions_browser_ver` varchar(10) NOT NULL default '',
-  `sessions_os` varchar(64) NOT NULL default '',
-  `sessions_login` INTEGER UNSIGNED NULL,
-  `sessions_last` INTEGER UNSIGNED NULL,
-  `sessions_lock` enum('Y','N') NOT NULL default 'N',
-  PRIMARY KEY (`sessions`),
-  INDEX IDX_user(`sessions_user_name`)
+  `SESSIONS` varchar(100) NOT NULL default '',
+  `SESSIONS_USER_NAME` varchar(40) NULL,
+  `SESSIONS_IPADR` varchar(100) NOT NULL default '',
+  `SESSIONS_BROWSER` varchar(64) NOT NULL default '',
+  `SESSIONS_BROWSER_VER` varchar(10) NOT NULL default '',
+  `SESSIONS_OS` varchar(64) NOT NULL default '',
+  `SESSIONS_LOGIN` INTEGER UNSIGNED NULL,
+  `SESSIONS_LAST` INTEGER UNSIGNED NULL,
+  `SESSION_LOCK` enum('Y','N') NOT NULL default 'N',
+  PRIMARY KEY (`SESSIONS`),
+  INDEX IDX_user(`SESSION_USER_NAME`)
 ) ENGINE=INNODB CHARACTER SET utf8;
