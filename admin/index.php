@@ -149,7 +149,7 @@ function check_error_status(formData, jqForm, options){
 		}
 	});
 	if( err ){
-		showErrorMessageBox('Please input the username and password!');
+		showErrorMessageBox('Please input the User Name and Password!');
 		return false;
 	}
 	return true;
@@ -197,18 +197,18 @@ EOFO;
     	$username = urldecode($_POST['username']);
 		$passwd = urldecode($_POST['passwd']);
 		
-		if( $username == self::$_username && $passwd == self::$_password )
-		{
-			session_start();
-			$session = session_id();
-			setcookie(self::$_cookie_name, $session, time() + 3600);
-			$return['error'] = FALSE;
-			$return['message'] = "view.php?sid=".$session;
-			return $return;
-		}
-		
+        $user = new User();
+        $userInfo = $user->login($username, $passwd);
+        
+        if($userInfo)
+        {
+            $return['error'] = FALSE;
+            $return['message'] = "index.php";
+            return $return;
+        }
+        		
 		$return['error'] = TRUE;
-		$return['message'] = "The username or password is not correct!<br/>Please try again!";
+		$return['message'] = "The User Name or Password is not correct!<br/>Please try again!";
 		return $return;
     }
     
