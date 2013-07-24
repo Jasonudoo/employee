@@ -291,9 +291,10 @@ body{
 		$.post(window.location.href,{dashboard:'load'},function(data){
 			$("<div id='tabs'></div>").appendTo("#content");
 			$("<ul id='tabs_content'></ul>").appendTo("#tabs");
-			$("<li><a href='#tab-1'>Local Server Data</a></li>").appendTo("#tabs_content");
-			$("<li><a href='" + window.location.href + "&dashboard=silver'>SilverPOP Server Data</a></li>").appendTo("#tabs_content");
-			$("<li><a href='" + window.location.href + "&dashboard=logout'>Logout</a></li>").appendTo('#tabs_content');
+			$("<li><a href='#tab-1'>Employee Information</a></li>").appendTo("#tabs_content");
+			$("<li><a href='" + window.location.href + "?dashboard=user'>Toolbox User Information</a></li>").appendTo("#tabs_content");
+			$("<li><a href='" + window.location.href + "?dashboard=settings'>General Settings</a></li>").appendTo("#tabs_content");
+		        $("<li><a href='" + window.location.href + "?dashboard=logout'>Logout</a></li>").appendTo('#tabs_content');
 			$("<div id='tab-1'></div>").appendTo("#tabs");
 			$("<div id='tab-grid'></div>").appendTo("#tab-1");
 			$("#tabs").tabs({
