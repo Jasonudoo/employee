@@ -15,8 +15,6 @@ error_reporting(E_ALL);
 define("PROJECT_START", TRUE);
 
 require_once "Config" . DIRECTORY_SEPARATOR . "Global.inc.php";
-require_once ADMIN_ROOT_PATH . DS . "Function" . DS . "common.inc.php";
-
 
 AdminView::Run();
 

@@ -38,5 +38,6 @@ define("WEB_EMPLOYEE_PHOTO_PATH", APP_ROOT . "uploads" . DS . "photo" . DS);
 define("WEB_EMPLOYEE_FILE_PATH", APP_ROOT . "uploads" . DS . "files" . DS);
 
 require_once APP_CONFIG_PATH . DS . "Config.inc.php";
+require_once APP_ADMIN_PATH . DS . "Function" . DS . "common.inc.php";
 require_once APP_CLASS_PATH . DS . "Application.php";
 Application::autoload();
