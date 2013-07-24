@@ -18,13 +18,17 @@ define("DB_NAME", "www_employee");
 //DB User Name
 define("DB_USER", "usr_employee");
 //DB Password
-define("DB_PASS", "imageco123");
+define("DB_PASS", "a6evVypDA){ohZL]");
 //DB Charset
 define("DB_CHARSET", "utf8");
 
 //===================Default System Parameters======================//
 //COOKIE Expired Timeout
 define('COOKIE_EXPIRED', 86400);
+//SESSION Expired Timeout
+define('SESSION_EXPIRED', 86400);
+//SESSION LOCK Expired
+define('SESSION_LOCK_EXPIRED', 86400 * 2);
 //Page Title Format
 define("APP_PAGE_TITLE", "%s -- Website Name");
 //Search Result Pagesize

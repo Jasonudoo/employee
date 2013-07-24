@@ -42,12 +42,22 @@ class Base
 		return $this->_table;
 	}
 	
-	public function setData($key, $value)
+	public function getDb()
+	{
+	    if( is_null($this->_db) )
+	    {
+	        $this->_db = Mysql::getInstance();
+	        $this->_db->connect();
+	    }
+	    return $this->_db;
+	}
+	
+	public function set($key, $value)
 	{
 		$this->_data[$key] = $value;
 	}
 	
-	public function getData($key)
+	public function get($key)
 	{
 		return isset($this->_data[$key]) ? $this->_data[$key] : NULL;
 	}
