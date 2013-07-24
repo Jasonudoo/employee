@@ -125,7 +125,7 @@ $(function(){
 			modal: true,
 			buttons: {"Login" : function(){
 				var frm_opt = {
-					url : 'view.php',
+					url : 'index.php',
 					type : 'post',
 					dataType : 'json',
 					closeOnEscape : false,
