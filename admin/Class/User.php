@@ -34,7 +34,7 @@ class User extends Base
     {
         if (empty($p_value))
             return FALSE;
-        $sql = sprintf("SELECT count(1) AS cnt FROM %s WHERE User_Name = '%s' LIMIT 1",
+        $sql = sprintf("SELECT count(1) AS cnt FROM %s WHERE USER_ID = '%s' LIMIT 1",
                 $this->getTable(),
                 $p_value);
         $qry = $this->getDb()->query($sql);
@@ -52,17 +52,16 @@ class User extends Base
             return FALSE;
         }
         $sql = sprintf(
-                "SELECT * FROM `%s` WHERE `User_Name` = '%s' AND `Pass` = '%s' AND `Admin` = 'Y' LIMIT 1",
+                "SELECT * FROM `%s` WHERE `USER_ID` = '%s' AND `USER_PASSWORD` = '%s' LIMIT 1",
                 $this->getTable(), $p_name, $p_passwd);
         
-        $userInfo = $this->DB->get_results($sql);
+        $userInfo = $this->getDb()->getAll($sql);
         if (count($userInfo) > 0) {
             $session = new Session();
-            $session->set("sessions_user_name", $userInfo[0]->User_Name);
+            $session->set("SESSIONS_USER_NAME", $userInfo[0]['USER_ID']);
             $session_id = $session->createSession();
             setcookie(CSESSIONID, $session_id, time() + SESSION_EXPIRED);
-            setcookie(CUSER_USERNAME, $userInfo[0]->User_Name,
-                    time() + SESSION_EXPIRED);
+            setcookie(CUSER_USERNAME, $userInfo[0]['USER_ID'], time() + SESSION_EXPIRED);
             
             return $userInfo[0];
         }
@@ -75,9 +74,9 @@ class User extends Base
         if (empty($p_name)) {
             return $result;
         }
-        $sql = sprintf("SELECT * FROM `%s` WHERE `User_Name` = '%s' LIMIT 1",
-                $this->_table, $p_name);
-        $result = $this->DB->get_results($sql);
+        $sql = sprintf("SELECT * FROM `%s` WHERE `USER_ID` = '%s' LIMIT 1",
+                $this->getTable(), $p_name);
+        $result = $this->getDb()->getAll($sql);
         
         if (count($result) > 0) {
             return $result[0];
@@ -91,7 +90,7 @@ class User extends Base
         setcookie(CSESSIONID, "", 0);
         setcookie(CUSER_USERNAME, "", 0);
         if (! headers_sent()) {
-            header("Location: login.php");
+            header("Location: index.php");
         }
     }
 

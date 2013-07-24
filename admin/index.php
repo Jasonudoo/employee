@@ -22,9 +22,6 @@ AdminView::Run();
 
 final class AdminView extends Application
 {
-	static private $_form;
-	static private $_cookie_name = "kw3kdosldng";
-	
 	protected function _before_init()
 	{
 	}
@@ -49,13 +46,9 @@ final class AdminView extends Application
 	
 	private static function _isAuthorization()
 	{
-	    $user = new User();
-	    
-		if( isset($_COOKIE[self::$_cookie_name]) && !empty($_REQUEST['sid']) && $_COOKIE[self::$_cookie_name] === $_REQUEST['sid'] )
-		{
-			return TRUE;
-		}
-		return FALSE;
+	    $sess = new Session();
+	    $sess->verify();
+	    return $sess->Login;
 	}
 	
 	private static function _doAuthorization()
