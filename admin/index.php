@@ -301,9 +301,8 @@ body{
     			ajaxOptions: {
     				success : function(data){
     					var d = eval('[' + data + ']');
-		                alert(d);
     					if(d[0]['action'] == 'logout'){
-    						window.location.reload();
+    						//window.location.reload();
     					}
     				}
     			},
