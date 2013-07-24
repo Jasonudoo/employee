@@ -106,7 +106,7 @@ class Session extends Base
     private function cleanExpiredSessions()
     {
 		$expired = time() - SESSION_EXPIRED;
-		$sql = sprintf("DELETE FROM `%s` WHERE `SESSIONS_LAST` <= %b AND `SESSIONS_LOCK` = 'N'",
+		$sql = sprintf("DELETE FROM `%s` WHERE `SESSIONS_LAST` <= %d AND `SESSIONS_LOCK` = 'N'",
 		            $this->getTable(), $expired);
 		echo $sql;
 		$this->getDb()->query($sql);
