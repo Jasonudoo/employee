@@ -52,20 +52,29 @@ class User extends Base
             return FALSE;
         }
         $sql = sprintf(
-                "SELECT * FROM `%s` WHERE `USER_ID` = '%s' AND `USER_PASSWORD` = '%s' LIMIT 1",
-                $this->getTable(), $p_name, $p_passwd);
+                "SELECT * FROM `%s` WHERE `USER_ID` = '%s' LIMIT 1",
+                $this->getTable(), $p_name);
         
         $userInfo = $this->getDb()->getAll($sql);
         if (count($userInfo) > 0) {
-            $session = new Session();
-            $session->set("SESSIONS_USER_NAME", $userInfo[0]['USER_ID']);
-            $session_id = $session->createSession();
-            setcookie(CSESSIONID, $session_id, time() + SESSION_EXPIRED);
-            setcookie(CUSER_USERNAME, $userInfo[0]['USER_ID'], time() + SESSION_EXPIRED);
+            $password = $this->generatePassword($p_passwd, $userInfo[0]['PASSWORD_SEED']);
+            if($password == $userInfo[0]['USER_PASSWORD'])
+            {
+                $session = new Session();
+                $session->set("SESSIONS_USER_NAME", $userInfo[0]['USER_ID']);
+                $session_id = $session->createSession();
+                setcookie(CSESSIONID, $session_id, time() + SESSION_EXPIRED);
+                setcookie(CUSER_USERNAME, $userInfo[0]['USER_ID'], time() + SESSION_EXPIRED);
             
-            return $userInfo[0];
+                return $userInfo[0];
+            }
         }
         return FALSE;
+    }
+    
+    public function generatePassword($p_passwd, $p_seed)
+    {
+        return md5(md5($p_passwd) . $p_seed);
     }
 
     public function getUserInfoByName ($p_name)
