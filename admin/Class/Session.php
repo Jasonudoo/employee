@@ -160,7 +160,7 @@ class Session extends Base
 						$this->get('SESSIONS_LOCK'),
 		                time(),
 		                time());
-		echo $sql;
+		//echo $sql;
 		$this->getDb()->query($sql);
         return $sessionid;
     }
