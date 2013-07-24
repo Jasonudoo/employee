@@ -475,8 +475,8 @@ EODB;
         $user->signout();
 		$result['action'] = 'logout';
 		$result['message'] = 'logout now';
-		echo json_encode($result);
-		//header("Location : ". $_SERVER['PHP_SELF']);
+		//echo json_encode($result);
+		header("Location : ". $_SERVER['PHP_SELF']);
 		return;
 	}
 	
