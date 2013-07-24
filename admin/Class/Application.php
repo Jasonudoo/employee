@@ -350,11 +350,7 @@ class Application
 	
 	private function _init()
 	{
-		$wapview = $this->getDefaultWapView();
-		if( Wap::checkUserAgent() )
-		{
-			$wapview = Wap::isSupportWap();
-		}
+		$wapview = $this->getDefaultView();
 		$this->getView()->setViewport($wapview);
 	}
 	
