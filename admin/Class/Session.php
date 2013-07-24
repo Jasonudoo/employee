@@ -39,11 +39,14 @@ class Session extends Base
         }
 
         $this->set("SESSIONS_IPADR", $_SERVER['REMOTE_ADDR']);
-		$agent = checkUserAgentString($_SERVER['HTTP_USER_AGENT']);
-		$this->set("SESSIONS_BROWSER", $agent[0]);
-		$this->set("SESSIONS_BROWSER_VER", $agent[1]);
-		$this->set("SESSIONS_OS", $agent[2]);
-
+		//$agent = checkUserAgentString($_SERVER['HTTP_USER_AGENT']);
+		//$this->set("SESSIONS_BROWSER", $agent[0]);
+		//$this->set("SESSIONS_BROWSER_VER", $agent[1]);
+		//$this->set("SESSIONS_OS", $agent[2]);
+        $this->set("SESSIONS_BROWSER", "");
+        $this->set("SESSIONS_BROWSER_VER", "");
+        $this->set("SESSIONS_OS", "");
+        
     }
     
 	/**
