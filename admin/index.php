@@ -16,8 +16,6 @@ define("PROJECT_START", TRUE);
 
 require_once "Config" . DIRECTORY_SEPARATOR . "Global.inc.php";
 
-AdminView::Run();
-
 final class AdminView extends Application
 {
 	protected function _before_init()
@@ -555,3 +553,5 @@ EODB;
 		exit;
 	}
 }
+
+AdminView::Run();
