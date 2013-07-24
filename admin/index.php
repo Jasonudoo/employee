@@ -18,6 +18,8 @@ require_once "Config" . DIRECTORY_SEPARATOR . "Global.inc.php";
 
 final class AdminView extends Application
 {
+    public static $App;
+    
 	protected function _before_init()
 	{
 	}
@@ -28,7 +30,7 @@ final class AdminView extends Application
 	}
 	public static function Run()
 	{
-	    parent::__construct();
+	    self::$App = parent::getInstance();
 	    
 		if( self::_isAuthorization() )
 		{

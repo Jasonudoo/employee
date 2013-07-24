@@ -76,6 +76,8 @@ class Application
 	 */
 	private $_SUCCESS = NULL;
 	
+	private static $_instance = NULL;
+	
 	/*
 	 * Construct Function
 	 * set the default view port
@@ -94,6 +96,15 @@ class Application
 		$this->_before_init();
 		$this->_init();
 		$this->_after_init();
+	}
+	
+	static public function getInstance()
+	{
+	    if( is_null(self::$_instance) )
+	    {
+	        self::$_instance = new Application();
+	    }
+	    return self::$_instance;
 	}
     
 	static public function autoload()
