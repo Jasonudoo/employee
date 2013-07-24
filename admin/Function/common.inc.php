@@ -30,7 +30,7 @@ function daddslashes($string, $force = 0) {
 }
 
 function is_email($p_addr) {
-    if (eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$", $p_addr))
+    if (preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$", $p_addr))
         return true;
     else
         return false;
@@ -44,7 +44,7 @@ function checkUserAgentString($p_value) {
     $pattern = "([^/[:space:]]*)"."(/([^[:space:]]*))?"."([[:space:]]*\[[a-zA-Z][a-zA-Z]\])?"."[[:space:]]*"."(\\((([^()]|(\\([^()]*\\)))*)\\))?"."[[:space:]]*";
 
     while (strlen($agent) > 0) {
-        if ($l = ereg($pattern, $agent, $a)) {
+        if ($l = preg_match($pattern, $agent, $a)) {
             // product, version, comment
             array_push($products, array($a[1], $a[3], $a[6]));
             $agent = substr($agent, $l);
@@ -95,7 +95,7 @@ function checkUserAgentString($p_value) {
     // Loop through the array of user agents and matching operating systems
     foreach ($oslist as $CurrOS=>$Match) {
         // Find a match
-        if (eregi($Match, $products[0][2])) {
+        if (preg_match("/" . $Match . "/i", $products[0][2])) {
             // We found the correct match
             break;
         }
