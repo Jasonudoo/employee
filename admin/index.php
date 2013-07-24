@@ -301,6 +301,7 @@ body{
     			ajaxOptions: {
     				success : function(data){
     					var d = eval('[' + data + ']');
+		                alert(d);
     					if(d[0]['action'] == 'logout'){
     						window.location.reload();
     					}
@@ -475,8 +476,8 @@ EODB;
         $user->signout();
 		$result['action'] = 'logout';
 		$result['message'] = 'logout now';
-		//echo json_encode($result);
-		header("Location : ". $_SERVER['PHP_SELF']);
+		echo json_encode($result);
+		//header("Location : ". $_SERVER['PHP_SELF']);
 		return;
 	}
 	
