@@ -108,6 +108,7 @@ class Session extends Base
 		$expired = time() - SESSION_EXPIRED;
 		$sql = sprintf("DELETE FROM `%s` WHERE `SESSIONS_LAST` <= %b AND `SESSIONS_LOCK` = 'N'",
 		            $this->getTable(), $expired);
+		echo $sql;
 		$this->getDb()->query($sql);
     }
 
@@ -160,7 +161,7 @@ class Session extends Base
 						$this->get('SESSIONS_LOCK'),
 		                time(),
 		                time());
-		echo $sql;
+		//echo $sql;
 		$this->getDb()->query($sql);
         return $sessionid;
     }
