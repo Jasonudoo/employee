@@ -470,7 +470,8 @@ EODB;
     
     static private function _doLogout()
     {
-		setcookie(self::$_cookie_name, '', 0);
+        $user = new User();
+        $user->signout();
 		$result['action'] = 'logout';
 		$result['message'] = 'logout now';
 		echo json_encode($result);
