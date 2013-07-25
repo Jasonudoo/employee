@@ -425,7 +425,6 @@ body{
 		        if( $.trim($(e).val()) == "" ) {
 		            msg = msg + m[k] + "<br/>";
 			        err = true;
-			        return false;
 		        }
 	        });
 	        if( err ){
