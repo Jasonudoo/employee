@@ -345,6 +345,39 @@ body{
 				showTableToggleBtn: true,
 				height: 555
 			});
+
+			$("#user-grid").flexigrid({
+				url: window.location.href,
+				dataType: 'xml',
+				colModel : [
+					{display: 'ID', name : 'EMPLOYEE_ID', width : 30, sortable : true, align: 'center'},
+					{display: 'First Name', name : 'FIRST_NAME', width : 80, sortable : false, align: 'left'},
+					{display: 'Last Name', name : 'LAST_NAME', width : 80, sortable : false, align: 'left'},
+					{display: 'E-mail Address', name : 'CONTACT_EMAIL', width : 80, sortable : true, align: 'left'},
+					{display: 'Phone', name : 'CONTACT_NUMBER', width : 80, sortable : false, align: 'right'},
+					{display: 'Status', name : 'STATUS', width : 80, sortable : false, align: 'right'},
+					{display: 'Last Login Time', name : 'LAST_LOGIN_TIME', width : 180, sortable : true, align: 'center'},
+					],
+				buttons : [
+		        	{name: 'Add', bclass: 'add', onpress : add_user},
+                    {name: 'Delete', bclass: 'delete', onpress : delete_user},
+                    {separator: true}
+				],
+				searchitems : [
+					{display: 'E-mail Address', name : 'EMAIL'},
+					{display: 'First Name', name: 'FIRST_NAME'},
+					{display: 'Last Name', name:'LAST_NAME'},
+					{display: 'Phone', name:'PHONE_NUMBER'}
+				],
+				sortname: "FIRST_NAME",
+				sortorder: "DESC",
+				usepager: true,
+				useRp: true,
+				rp: 30,
+				showTableToggleBtn: true,
+				height: 555
+			});
+		        
 		});
     });
     function add_user(){
@@ -376,7 +409,7 @@ body{
 		});
     }
     function remove_employee(){
-		alert("I am here!!!!");
+		
     }
     function import_employee(){
 		Import();
