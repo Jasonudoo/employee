@@ -380,7 +380,7 @@ body{
 		        
 		});
     });
-    funciton add_user(){
+    function add_user(){
     }
     function delete_user(){
     }
