@@ -352,7 +352,7 @@ body{
     function delete_user(){
     }
     function add_employee(){
-        $("div id='add_emp' titl='Add Employee'></div>").appendTo("#content");
+        $("div id='add_emp' title='Add Employee'></div>").appendTo("#content");
         $("<form id='empForm' method='post'></form>").appendTo('#add_emp');
 		$("<div style='padding-bottom:5px;'><label for='FName'>First Name</label>&nbsp;<input type='text' id='FName' name='FName'/><div class='clear'></div></div>").appendTo("#empForm");
 		$("<div style='padding-bottom:5px;'><label for='LName'>Last Name</label>&nbsp;<input type='text' id='LName' name='LName'/><div class='clear'></div></div>").appendTo("#empForm");
@@ -375,6 +375,7 @@ body{
 		});
     }
     function remove_employee(){
+		alert("I am here!!!!");
     }
     function import_employee(){
 		Import();
