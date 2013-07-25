@@ -343,14 +343,14 @@ body{
 				useRp: true,
 				rp: 30,
 				showTableToggleBtn: true,
-				height: 555
+				height: auto
 			});
 
 			$("#user-grid").flexigrid({
 				url: window.location.href,
 				dataType: 'xml',
 				colModel : [
-					{display: 'ID', name : 'EMPLOYEE_ID', width : 30, sortable : true, align: 'center'},
+					{display: 'ID', name : 'USER_ID', width : 30, sortable : true, align: 'center'},
 					{display: 'First Name', name : 'FIRST_NAME', width : 80, sortable : false, align: 'left'},
 					{display: 'Last Name', name : 'LAST_NAME', width : 80, sortable : false, align: 'left'},
 					{display: 'E-mail Address', name : 'CONTACT_EMAIL', width : 80, sortable : true, align: 'left'},
@@ -367,7 +367,7 @@ body{
 					{display: 'E-mail Address', name : 'EMAIL'},
 					{display: 'First Name', name: 'FIRST_NAME'},
 					{display: 'Last Name', name:'LAST_NAME'},
-					{display: 'Phone', name:'PHONE_NUMBER'}
+					{display: 'Phone', name:'CONTACT_NUMBER'}
 				],
 				sortname: "FIRST_NAME",
 				sortorder: "DESC",
@@ -375,7 +375,7 @@ body{
 				useRp: true,
 				rp: 30,
 				showTableToggleBtn: true,
-				height: 555
+				height: auto
 			});
 		        
 		});
