@@ -352,8 +352,7 @@ body{
     function delete_user(){
     }
     function add_employee(){
-        alert("I am add here!!!!");
-        $("div id='add_emp' title='Add Employee'></div>").appendTo("#content");
+        $("<div id='add_emp' title='Add Employee'></div>").appendTo("#content");
         $("<form id='empForm' method='post'></form>").appendTo('#add_emp');
 		$("<div style='padding-bottom:5px;'><label for='FName'>First Name</label>&nbsp;<input type='text' id='FName' name='FName'/><div class='clear'></div></div>").appendTo("#empForm");
 		$("<div style='padding-bottom:5px;'><label for='LName'>Last Name</label>&nbsp;<input type='text' id='LName' name='LName'/><div class='clear'></div></div>").appendTo("#empForm");
@@ -362,6 +361,19 @@ body{
 		$("<div style='padding-bottom:5px;'><label for='Extens'>Phone Extens Number</label>&nbsp;<input type='text' id='Extens' name='Extens'/><div class='clear'></div></div>").appendTo("#empForm");
 		$("<div style='padding-bottom:5px;'><label for='Photo'>Photo</label>&nbsp;<input type='file' id='Photo' name='Photo'/><label>Upload the employee Photo</label><div class='clear'></div></div>").appendTo("#empForm");
 		$("<input type='hidden' name='action' value='add_employee' />").appendTo("#empForm");
+
+		$("#add_emp").dialog({
+			modal: true,
+			buttons: {
+				Add: function() {
+		            alert("I am here too!!!!!");
+				},
+				Cancel: function() {
+					$(this).dialog("destroy");
+					$("#add_emp").remove();
+    			}
+    		}
+		});
     }
     function remove_employee(){
 		alert("I am here!!!!");
