@@ -452,16 +452,6 @@ EODB;
 		return $html;
     }
     
-    private static function _getForm()
-    {
-    	if( is_null(self::$_form) )
-    	{
-    		$form = new WebForm();
-    		self::$_form = $form;
-    	}
-    	return self::$_form;
-    }
-    
     private static function _doSearch()
     {
     	$page = $_POST['page'];
@@ -471,52 +461,9 @@ EODB;
     	$query = trim($_POST['query']);
     	$qtype = $_POST['qtype'];
 
-    	self::_getForm()->connect();
-    	
 		$str = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
     	$str .= "<rows>";
     	$str .= "<page>$page</page>";
-    	
-    	$wc = "";
-    	if( !empty($query) )
-    	{
-    		$wc = " WHERE " . $qtype . " like '%" . mysql_real_escape_string($query) . "%'";
-    	}
-    	$sql = "SELECT count(1) AS CNT FROM tbl_userinfo".$wc;
-    	$qry = self::_getForm()->query($sql);
-    	$rs_cnt = self::_getForm()->fetch_array($qry);
-    	$str .= "<total>".$rs_cnt['CNT']."</total>";
-    	
-    	$from = $rp * ($page - 1);
-    	$sql = "SELECT * FROM tbl_userinfo " . $wc . "ORDER BY " . $sortname ." ". $sortorder ." LIMIT " . $from . "," . $rp;
-    	$qry = self::_getForm()->query($sql);
-    	while( ($rs = self::_getForm()->fetch_array($qry)) !== FALSE )
-    	{
-    		$str .= "<row id='".$rs['id']."'>";
-    		$str .= "<cell><![CDATA[".$rs['id']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_created_date']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['campaign_id']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_subid']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_sub_id_2']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_ip_addr']."]]></cell>";
-    		$from_page = isset(self::$_source_from[$rs['usr_from_page']]) ? self::$_source_from[$rs['usr_from_page']] : "";
-    		$str .= "<cell><![CDATA[".$from_page."]]></cell>";
-    		$insert_result = ($rs['usr_insert_silverpop_status'] == "YES") ? "SUCCESS" : "FAILTH";
-    		$str .= "<cell><![CDATA[".$insert_result."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_recipient_id']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_first_name']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_last_name']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_company']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_work_email']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_phone']."]]></cell>";
-			$str .= "<cell><![CDATA[".$rs['usr_phone_extent']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_job_title']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_option1']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_option2']."]]></cell>";
-    		$str .= "<cell><![CDATA[".$rs['usr_option3']."]]></cell>";
-    		//$str .= "<cell><![CDATA[".$rs['']."]]></cell>";
-    		$str .= "</row>";
-    	}
     	$str .= "</rows>";
     	echo $str;
    		return $str;
