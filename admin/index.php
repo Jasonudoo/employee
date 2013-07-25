@@ -329,7 +329,7 @@ body{
 		        	{name: 'Add', bclass: 'add', onpress : add_employee},
                     {name: 'Delete', bclass: 'delete', onpress : remove_employee},
                     {separator: true},
-					{name: 'Import', bclass: 'export', onpress:Import}
+					{name: 'Import', bclass: 'export', onpress:import_employee}
 				],
 				searchitems : [
 					{display: 'E-mail Address', name : 'EMAIL'},
@@ -377,7 +377,6 @@ body{
 				showTableToggleBtn: true,
 				height: 555
 			});
-		        
 		});
     });
     function add_user(){
@@ -385,8 +384,31 @@ body{
     function delete_user(){
     }
     function add_employee(){
+        $("div id='add_emp' titl='Add Employee'></div>").appendTo("#content");
+        $("<form id='empForm' method='post'></form>").appendTo('#add_tmp');
+		$("<div style='padding-bottom:5px;'><label for='FName'>First Name</label>&nbsp;<input type='text' id='FName' name='FName'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='LName'>Last Name</label>&nbsp;<input type='text' id='LName' name='LName'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='Email'>Email</label>&nbsp;<input type='text' id='EMail' name='EMail'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='Phone'>Phone Number</label>&nbsp;<input type='text' id='Phone' name='Phone'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='Extens'>Phone Extens Number</label>&nbsp;<input type='text' id='Extens' name='Extens'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='Photo'>Photo</label>&nbsp;<input type='file' id='Photo' name='Photo'/><label>Upload the employee Photo</label><div class='clear'></div></div>").appendTo("#empForm");
+		$("<input type='hidden' name='action' value='add_employee' />").appendTo("#empForm");
+
+        $("#add_emp").dialog({
+			modal: true,
+			buttons: {
+				Add: function() {
+				},
+				Cancel: function() {
+					$(this).dialog("destroy");
+					$("#add_emp").remove();
+    			}
+    		}
+		});
     }
     function remove_employee(){
+    }
+    function import_employee(){
     }
     function Import(){
 		$("<div id='dd' title='Please Set the date range and Export the data'></div>").appendTo("#content");
