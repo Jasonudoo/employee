@@ -315,7 +315,7 @@ body{
 
 			$("#employee-grid").flexigrid({
 				url: window.location.href,
-				dataType: 'json',
+				dataType: 'xml',
 				colModel : [
 					{display: 'ID', name : 'EMPLOYEE_ID', width : 30, sortable : true, align: 'center'},
 					{display: 'First Name', name : 'FIRST_NAME', width : 80, sortable : false, align: 'left'},
@@ -348,7 +348,7 @@ body{
 		        
 			$("#user-grid").flexigrid({
 				url: window.location.href,
-				dataType: 'json',
+				dataType: 'xml',
 				colModel : [
 					{display: 'ID', name : 'EMPLOYEE_ID', width : 30, sortable : true, align: 'center'},
 					{display: 'First Name', name : 'FIRST_NAME', width : 80, sortable : false, align: 'left'},
