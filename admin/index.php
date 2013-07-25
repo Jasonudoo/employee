@@ -292,10 +292,13 @@ body{
 			$("<div id='tabs'></div>").appendTo("#content");
 			$("<ul id='tabs_content'></ul>").appendTo("#tabs");
 			$("<li><a href='#tab-1'>Employee Information</a></li>").appendTo("#tabs_content");
-			$("<li><a href='" + window.location.href + "?dashboard=user'>Toolbox User Information</a></li>").appendTo("#tabs_content");
-			$("<li><a href='" + window.location.href + "?dashboard=settings'>General Settings</a></li>").appendTo("#tabs_content");
+			$("<li><a href='#tab-2'>Toolbox User Information</a></li>").appendTo("#tabs_content");
+			$("<li><a href='#tab-3'>General Settings</a></li>").appendTo("#tabs_content");
 			$("<div id='tab-1'></div>").appendTo("#tabs");
-			$("<div id='tab-grid'></div>").appendTo("#tab-1");
+		    $("<div id='tab-2'></div>").appendTo("#tabs");
+            $("<div id='tab-3'></div>").appendTo('#tabs");
+			$("<div id='employee-grid'></div>").appendTo("#tab-1");
+		    $("<div id='user-grid'></div>").appendTo("#tab-2");
 			$("#tabs").tabs({
     			ajaxOptions: {
     				success : function(data){
@@ -310,7 +313,7 @@ body{
     			}
     		});
 
-			$("#tab-grid").flexigrid({
+			$("#employee-grid").flexigrid({
 				url: window.location.href,
 				dataType: 'json',
 				colModel : [
@@ -323,8 +326,8 @@ body{
 					{display: 'Fule Name', name : 'FILE_NAME', width : 180, sortable : true, align: 'center'},
 					],
 				buttons : [
-		        	{name: 'Add', bclass: 'add', onpress : test},
-                    {name: 'Delete', bclass: 'delete', onpress : test},
+		        	{name: 'Add', bclass: 'add', onpress : add_employee},
+                    {name: 'Delete', bclass: 'delete', onpress : remove_employee},
                     {separator: true},
 					{name: 'Import', bclass: 'export', onpress:Import}
 				],
@@ -342,10 +345,49 @@ body{
 				showTableToggleBtn: true,
 				height: 555
 			});
-			
+		        
+			$("#user-grid").flexigrid({
+				url: window.location.href,
+				dataType: 'json',
+				colModel : [
+					{display: 'ID', name : 'EMPLOYEE_ID', width : 30, sortable : true, align: 'center'},
+					{display: 'First Name', name : 'FIRST_NAME', width : 80, sortable : false, align: 'left'},
+					{display: 'Last Name', name : 'LAST_NAME', width : 80, sortable : false, align: 'left'},
+					{display: 'E-mail Address', name : 'CONTACT_EMAIL', width : 80, sortable : true, align: 'left'},
+					{display: 'Phone', name : 'CONTACT_NUMBER', width : 80, sortable : false, align: 'right'},
+					{display: 'Status', name : 'STATUS', width : 80, sortable : false, align: 'right'},
+					{display: 'Last Login Time', name : 'LAST_LOGIN_TIME', width : 180, sortable : true, align: 'center'},
+					],
+				buttons : [
+		        	{name: 'Add', bclass: 'add', onpress : add_user},
+                    {name: 'Delete', bclass: 'delete', onpress : delete_user},
+                    {separator: true}
+				],
+				searchitems : [
+					{display: 'E-mail Address', name : 'EMAIL'},
+					{display: 'First Name', name: 'FIRST_NAME'},
+					{display: 'Last Name', name:'LAST_NAME'},
+					{display: 'Phone', name:'PHONE_NUMBER'}
+				],
+				sortname: "FIRST_NAME",
+				sortorder: "DESC",
+				usepager: true,
+				useRp: true,
+				rp: 30,
+				showTableToggleBtn: true,
+				height: 555
+			});
+		        
 		});
     });
-    
+    funciton add_user(){
+    }
+    function delete_user(){
+    }
+    function add_employee(){
+    }
+    function remove_employee(){
+    }
     function Import(){
 		$("<div id='dd' title='Please Set the date range and Export the data'></div>").appendTo("#content");
 		$("<form id='expForm' method='post'></form>").appendTo('#dd');
