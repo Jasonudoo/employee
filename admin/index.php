@@ -294,7 +294,6 @@ body{
 			$("<li><a href='#tab-1'>Employee Information</a></li>").appendTo("#tabs_content");
 			$("<li><a href='" + window.location.href + "?dashboard=user'>Toolbox User Information</a></li>").appendTo("#tabs_content");
 			$("<li><a href='" + window.location.href + "?dashboard=settings'>General Settings</a></li>").appendTo("#tabs_content");
-            $("<li><a href='" + window.location.href + "?dashboard=logout'>Logout</a></li>").appendTo('#tabs_content');
 			$("<div id='tab-1'></div>").appendTo("#tabs");
 			$("<div id='tab-grid'></div>").appendTo("#tab-1");
 			$("#tabs").tabs({
@@ -477,7 +476,7 @@ EODB;
 		$result['message'] = 'logout now';
 		echo json_encode($result);
 		//header("Location : ". $_SERVER['PHP_SELF']);
-		exit;
+		return;
 	}
 	
 	static private function _doExport()
