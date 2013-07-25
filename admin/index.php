@@ -312,39 +312,29 @@ body{
 
 			$("#tab-grid").flexigrid({
 				url: window.location.href,
-				dataType: 'xml',
+				dataType: 'json',
 				colModel : [
-					{display: 'ID', name : 'id', width : 30, sortable : true, align: 'center'},
-					{display: 'Create Date', name : 'usr_created_date', width : 110, sortable : true, align: 'center'},
-					{display: 'Campaign', name : 'campaign_id', width : 50, sortable : true, align: 'center'},
-					{display: 'Sub ID', name : 'usr_subid', width : 100, sortable : true, align: 'center'},
-					{display: 'Sub ID 2', name : 'usr_sub_id_2', width : 50, sortable : true, align: 'center'},
-					{display: 'IP Address', name : 'usr_ip_addr', width : 80, sortable : false, align: 'center'},
-					{display: 'From Page', name : 'usr_from_page', width : 180, sortable : true, align: 'center'},
-					{display: 'SilverPOP Action', name : 'usr_insert_silverpop_status', width : 60, sortable : true, align: 'center'},
-					{display: 'Recipient Id', name : 'usr_recipient_id', width : 60, sortable : false, align: 'center'},
-					{display: 'First Name', name : 'usr_first_name', width : 80, sortable : false, align: 'left'},
-					{display: 'Last Name', name : 'usr_last_name', width : 80, sortable : false, align: 'left'},
-					{display: 'Company', name : 'usr_company', width : 100, sortable : true, align: 'center'},
-					{display: 'E-mail Address', name : 'usr_work_email', width : 80, sortable : true, align: 'left'},
-					{display: 'Phone', name : 'usr_phone', width : 80, sortable : false, align: 'right'},
-					{display: 'Phone Extension', name : 'usr_phone_extent', width : 80, sortable : false, align: 'right'},
-					{display: 'Job Title', name : 'usr_job_title', width : 80, sortable : true, align: 'right'},
-					{display: 'Option 1', name : 'usr_option1', width : 80, sortable : false, align: 'right'},
-					{display: 'Option 2', name : 'usr_option2', width : 80, sortable : false, align: 'right'},
-					{display: 'Option 3', name : 'usr_option3', width : 80, sortable : false, align: 'right'},
+					{display: 'ID', name : 'EMPLOYEE_ID', width : 30, sortable : true, align: 'center'},
+					{display: 'First Name', name : 'FIRST_NAME', width : 80, sortable : false, align: 'left'},
+					{display: 'Last Name', name : 'LAST_NAME', width : 80, sortable : false, align: 'left'},
+					{display: 'E-mail Address', name : 'EMAIL', width : 80, sortable : true, align: 'left'},
+					{display: 'Phone', name : 'PHONE_NUMBER', width : 80, sortable : false, align: 'right'},
+					{display: 'Phone Extension', name : 'INTERNAL_EXTENS', width : 80, sortable : false, align: 'right'},
+					{display: 'Fule Name', name : 'FILE_NAME', width : 180, sortable : true, align: 'center'},
 					],
 				buttons : [
-					{name: 'Export', bclass: 'export', onpress:export_csv}
+		        	{name: 'Add', bclass: 'add', onpress : test},
+                    {name: 'Delete', bclass: 'delete', onpress : test},
+                    {separator: true}
+					{name: 'Import', bclass: 'export', onpress:Import}
 				],
 				searchitems : [
-					{display: 'E-mail Address', name : 'usr_work_email'},
-					{display: 'Campaign', name: 'campaign_id'},
-					{display: 'Sub ID', name:'usr_subid'},
-					{display: 'Sub ID 2', name:'usr_sub_id_2'},
-					{display: 'Company Name', name : 'usr_company_name'}
+					{display: 'E-mail Address', name : 'EMAIL'},
+					{display: 'First Name', name: 'FIRST_NAME'},
+					{display: 'Last Name', name:'LAST_NAME'},
+					{display: 'Phone', name:'PHONE_NUMBER'}
 				],
-				sortname: "id",
+				sortname: "FIRST_NAME",
 				sortorder: "DESC",
 				usepager: true,
 				useRp: true,
@@ -356,7 +346,7 @@ body{
 		});
     });
     
-    function export_csv(){
+    function Import(){
 		$("<div id='dd' title='Please Set the date range and Export the data'></div>").appendTo("#content");
 		$("<form id='expForm' method='post'></form>").appendTo('#dd');
 		$("<div style='padding-bottom:5px;'><label for='from'>From</label>&nbsp;<input type='text' id='from' name='from'/><div class='clear'></div></div>").appendTo("#expForm");
