@@ -343,7 +343,7 @@ body{
 				useRp: true,
 				rp: 30,
 				showTableToggleBtn: true,
-				height: auto
+				height: 500
 			});
 
 			$("#user-grid").flexigrid({
@@ -375,7 +375,7 @@ body{
 				useRp: true,
 				rp: 30,
 				showTableToggleBtn: true,
-				height: auto
+				height: 500
 			});
 		        
 		});
