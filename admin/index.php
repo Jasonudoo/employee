@@ -429,7 +429,7 @@ body{
 		        }
 	        });
 	        if( err ){
-		        showErrorMessageBox('Please input the User Name and Password!');
+		        showErrorMessageBox(msg);
 		        return false;
 	        }
 	        return true;
