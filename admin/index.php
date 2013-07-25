@@ -409,6 +409,7 @@ body{
     function remove_employee(){
     }
     function import_employee(){
+		Import();
     }
     function Import(){
 		$("<div id='dd' title='Please Set the date range and Export the data'></div>").appendTo("#content");
