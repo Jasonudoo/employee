@@ -354,12 +354,12 @@ body{
     function add_employee(){
         $("<div id='add_emp' title='Add Employee'></div>").appendTo("#content");
         $("<form id='empForm' method='post'></form>").appendTo('#add_emp');
-		$("<div style='padding-bottom:5px;'><label for='FName'>First Name</label>&nbsp;<input type='text' id='FName' name='FName'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='LName'>Last Name</label>&nbsp;<input type='text' id='LName' name='LName'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='Email'>Email</label>&nbsp;<input type='text' id='EMail' name='EMail'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='Phone'>Phone Number</label>&nbsp;<input type='text' id='Phone' name='Phone'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='Extens'>Phone Extens Number</label>&nbsp;<input type='text' id='Extens' name='Extens'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='Photo'>Photo</label>&nbsp;<input type='file' id='Photo' name='Photo'/><label>Upload the employee Photo</label><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='FName'>First Name : </label><div class='clear'></div><input type='text' id='FName' name='FName'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='LName'>Last Name : </label><div class='clear'></div><input type='text' id='LName' name='LName'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='Email'>Email : </label><div class='clear'></div><input type='text' id='EMail' name='EMail'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='Phone'>Phone Number : </label><div class='clear'></div><input type='text' id='Phone' name='Phone'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='Extens'>Phone Extens Number : </label><div class='clear'></div><input type='text' id='Extens' name='Extens'/><div class='clear'></div></div>").appendTo("#empForm");
+		$("<div style='padding-bottom:5px;'><label for='Photo'>Photo : </label><div class='clear'></div><input type='file' id='Photo' name='Photo'/><div class='clear'></div><label>Upload the employee Photo</label><div class='clear'></div></div>").appendTo("#empForm");
 		$("<input type='hidden' name='action' value='add_employee' />").appendTo("#empForm");
 
 		$("#add_emp").dialog({
