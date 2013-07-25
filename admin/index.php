@@ -379,76 +379,122 @@ body{
 			});
 		        
 		});
-    });
-    function add_user(){
-    }
-    function delete_user(){
-    }
-    function add_employee(){
-        $("<div id='add_emp' title='Add Employee'></div>").appendTo("#content");
-        $("<form id='empForm' method='post'></form>").appendTo('#add_emp');
-		$("<div style='padding-bottom:5px;'><label for='FName'>First Name : </label><div class='clear'></div><input type='text' id='FName' name='FName'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='LName'>Last Name : </label><div class='clear'></div><input type='text' id='LName' name='LName'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='Email'>Email : </label><div class='clear'></div><input type='text' id='EMail' name='EMail'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='Phone'>Phone Number : </label><div class='clear'></div><input type='text' id='Phone' name='Phone'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='Extens'>Phone Extens Number : </label><div class='clear'></div><input type='text' id='Extens' name='Extens'/><div class='clear'></div></div>").appendTo("#empForm");
-		$("<div style='padding-bottom:5px;'><label for='Photo'>Photo : </label><div class='clear'></div><input type='file' id='Photo' name='Photo'/><div class='clear'></div><label>Upload the employee Photo</label><div class='clear'></div></div>").appendTo("#empForm");
-		$("<input type='hidden' name='action' value='add_employee' />").appendTo("#empForm");
 
-		$("#add_emp").dialog({
-			modal: true,
-			buttons: {
-				Add: function() {
-		            alert("I am here too!!!!!");
-				},
-				Cancel: function() {
-					$(this).dialog("destroy");
-					$("#add_emp").remove();
+        function add_user(){
+        };
+        function delete_user(){
+        };
+        function add_employee(){
+            $("<div id='add_emp' title='Add Employee'></div>").appendTo("#content");
+            $("<form id='empForm' method='post'></form>").appendTo('#add_emp');
+    		$("<div style='padding-bottom:5px;'><label for='FName'>First Name : </label><div class='clear'></div><input type='text' id='FName' name='FName'/><div class='clear'></div></div>").appendTo("#empForm");
+    		$("<div style='padding-bottom:5px;'><label for='LName'>Last Name : </label><div class='clear'></div><input type='text' id='LName' name='LName'/><div class='clear'></div></div>").appendTo("#empForm");
+    		$("<div style='padding-bottom:5px;'><label for='EMail'>Email : </label><div class='clear'></div><input type='text' id='EMail' name='EMail'/><div class='clear'></div></div>").appendTo("#empForm");
+    		$("<div style='padding-bottom:5px;'><label for='Phone'>Phone Number : </label><div class='clear'></div><input type='text' id='Phone' name='Phone'/><div class='clear'></div></div>").appendTo("#empForm");
+    		$("<div style='padding-bottom:5px;'><label for='Extens'>Phone Extens Number : </label><div class='clear'></div><input type='text' id='Extens' name='Extens'/><div class='clear'></div></div>").appendTo("#empForm");
+    		$("<div style='padding-bottom:5px;'><label for='Photo'>Photo : </label><div class='clear'></div><input type='file' id='Photo' name='Photo'/><div class='clear'></div><label>Upload the employee Photo</label><div class='clear'></div></div>").appendTo("#empForm");
+    		$("<input type='hidden' name='action' value='add_employee' />").appendTo("#empForm");
+    
+    		$("#add_emp").dialog({
+    			modal: true,
+    			buttons: {
+    				"Add": function() {
+    		            var frm_opt = {
+		                    url : 'index.php',
+		                    type : 'post',
+		                    dateType : 'json',
+		                    beforeSubmit : validate_emp_form,
+		                    success : showResponse
+		                };
+		                $('#empForm').ajaxSubmit(frm_opt);
+    				},
+    				Cancel: function() {
+    					$(this).dialog("destroy");
+    					$("#add_emp").remove();
+        			}
+        		}
+    		});
+        };
+        function validate_emp_form(){
+	        var err = false;
+		    var msg = '';
+	        var f = ['FName', 'LName', 'EMail', 'Phone'];
+		    var m = ['Please input the employee First Name', 'Please input the employee Last Name', 'Please input the employee Email', 'Please input the employee Phone'];
+	        $.each(f, function(k,v){
+		        var e = '#' + v;
+		        if( $.trim($(e).val()) == "" ) {
+		            msg = msg + m[k] + "<br/>";
+			        err = true;
+			        return false;
+		        }
+	        });
+	        if( err ){
+		        showErrorMessageBox('Please input the User Name and Password!');
+		        return false;
+	        }
+	        return true;
+        }
+        function showResponse(responseText, statusText, xhr, \$form){
+        	var d = responseText;
+        	if (d.error) {
+        		showErrorMessageBox(d.message);
+        	}
+        	else {
+        		window.location.href = d.message;
+        	}
+        }
+        
+        function showErrorMessageBox(m){
+        	$("<div id='message' title='Ooop Error Message'><p>" + m + "</p></div>").dialog({
+        		modal: true,
+        		buttons: {Ok: function() {
+        			$(this).dialog( "destroy" );
+        		}}
+        	});
+        }
+        function remove_employee(){
+    		
+        };
+        function import_employee(){
+    		Import();
+        };
+        function Import(){
+    		$("<div id='dd' title='Please Set the date range and Export the data'></div>").appendTo("#content");
+    		$("<form id='expForm' method='post'></form>").appendTo('#dd');
+    		$("<div style='padding-bottom:5px;'><label for='from'>From</label>&nbsp;<input type='text' id='from' name='from'/><div class='clear'></div></div>").appendTo("#expForm");
+    		$("<div><label for='to'>To</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='to' name='to'/></div>").appendTo("#expForm");
+    		$("<iframe id='secretIFrame' src='' style='display:none; visibility:hidden;'></iframe>").appendTo("#expForm");
+    		
+    		var dates = $( "#from, #to" ).datepicker({
+    			dateFormat: "yy-mm-dd",
+    			defaultDate: "-1w",
+    			changeMonth: true,
+    			numberOfMonths: 1,
+    			onSelect: function( selectedDate ) {
+    				var option = this.id == "from" ? "minDate" : "maxDate",
+    					instance = $( this ).data( "datepicker" ),
+    					date = $.datepicker.parseDate(
+    						instance.settings.dateFormat ||
+    						$.datepicker._defaults.dateFormat,
+    						selectedDate, instance.settings );
+    						dates.not( this ).datepicker( "option", option, date );
     			}
-    		}
-		});
-    }
-    function remove_employee(){
-		
-    }
-    function import_employee(){
-		Import();
-    }
-    function Import(){
-		$("<div id='dd' title='Please Set the date range and Export the data'></div>").appendTo("#content");
-		$("<form id='expForm' method='post'></form>").appendTo('#dd');
-		$("<div style='padding-bottom:5px;'><label for='from'>From</label>&nbsp;<input type='text' id='from' name='from'/><div class='clear'></div></div>").appendTo("#expForm");
-		$("<div><label for='to'>To</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' id='to' name='to'/></div>").appendTo("#expForm");
-		$("<iframe id='secretIFrame' src='' style='display:none; visibility:hidden;'></iframe>").appendTo("#expForm");
-		
-		var dates = $( "#from, #to" ).datepicker({
-			dateFormat: "yy-mm-dd",
-			defaultDate: "-1w",
-			changeMonth: true,
-			numberOfMonths: 1,
-			onSelect: function( selectedDate ) {
-				var option = this.id == "from" ? "minDate" : "maxDate",
-					instance = $( this ).data( "datepicker" ),
-					date = $.datepicker.parseDate(
-						instance.settings.dateFormat ||
-						$.datepicker._defaults.dateFormat,
-						selectedDate, instance.settings );
-						dates.not( this ).datepicker( "option", option, date );
-			}
-		});
-		$("#dd").dialog({
-			modal: true,
-			buttons: {
-				Export: function() {
-					$("#secretIFrame").attr("src",window.location.href + "&dashboard=export&from=" + $("#from").val() + "&to=" + $("#to").val());
-				},
-				Cancel: function() {
-					$(this).dialog("destroy");
-					$("#dd").remove();
-    			}
-    		}
-		});
-    }
+    		});
+    		$("#dd").dialog({
+    			modal: true,
+    			buttons: {
+    				Export: function() {
+    					$("#secretIFrame").attr("src",window.location.href + "&dashboard=export&from=" + $("#from").val() + "&to=" + $("#to").val());
+    				},
+    				Cancel: function() {
+    					$(this).dialog("destroy");
+    					$("#dd").remove();
+        			}
+        		}
+    		});
+        };
+		        
+    });
 </script>
 <div id="content"></div>
 EODB;
