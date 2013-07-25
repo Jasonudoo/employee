@@ -366,6 +366,7 @@ body{
 			modal: true,
 			buttons: {
 				Add: function() {
+		            alert("I am here too!!!!!");
 				},
 				Cancel: function() {
 					$(this).dialog("destroy");
