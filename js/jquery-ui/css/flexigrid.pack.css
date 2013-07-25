@@ -93,5 +93,11 @@ div.pGroup{float:left;background:none;height:24px;margin:0 5px}
 .flexigrid .pReload{background:url(images/load.png) no-repeat center}
 .flexigrid .pReload.loading{background:url(images/load.gif) no-repeat center}
 .flexigrid div.fbutton .export {background: url(images/page_excel.png) no-repeat center left;}
+.flexigrid div.fbutton .add {
+    background: url("images/add.png") no-repeat scroll left center transparent;
+}
+.flexigrid div.fbutton .delete {
+    background: url("images/close.png") no-repeat scroll left center transparent;
+}
 .flexigrid.ie div.hDiv th div,.flexigrid.ie div.bDiv td div,div.colCopy.ie div
 /* common inner cell properties*/{overflow:hidden}
