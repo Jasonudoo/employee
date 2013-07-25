@@ -325,7 +325,7 @@ body{
 				buttons : [
 		        	{name: 'Add', bclass: 'add', onpress : test},
                     {name: 'Delete', bclass: 'delete', onpress : test},
-                    {separator: true}
+                    {separator: true},
 					{name: 'Import', bclass: 'export', onpress:Import}
 				],
 				searchitems : [
