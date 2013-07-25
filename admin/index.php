@@ -296,7 +296,7 @@ body{
 			$("<li><a href='#tab-3'>General Settings</a></li>").appendTo("#tabs_content");
 			$("<div id='tab-1'></div>").appendTo("#tabs");
 		    $("<div id='tab-2'></div>").appendTo("#tabs");
-            $("<div id='tab-3'></div>").appendTo('#tabs");
+            $("<div id='tab-3'></div>").appendTo("#tabs");
 			$("<div id='employee-grid'></div>").appendTo("#tab-1");
 		    $("<div id='user-grid'></div>").appendTo("#tab-2");
 			$("#tabs").tabs({
